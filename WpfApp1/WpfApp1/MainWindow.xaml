@@ -7,6 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <ComboBox Name="Type" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Type_SelectionChanged"/>
+        <TextBox Name="Name"  HorizontalAlignment="Left" Height="23" Margin="10,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="ID_Code" HorizontalAlignment="Left" Height="23" Margin="10,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="Layer" HorizontalAlignment="Left" Margin="160,20,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="TopBottom" HorizontalAlignment="Left" Margin="160,64,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox Name="Defect" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Defect_SelectionChanged"/>
+        <Label Content="Tipo di set" HorizontalAlignment="Left" Margin="10,-6,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Nome progetto" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="ID code" HorizontalAlignment="Left" Margin="10,86,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Tipo di difetto" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Tipo di layer" HorizontalAlignment="Left" Margin="160,-6,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Top/Bottom" HorizontalAlignment="Left" Margin="160,38,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="Input1" HorizontalAlignment="Left" Height="23" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewLostKeyboardFocus="Input1_PreviewLostKeyboardFocus"/>
+        <TextBox x:Name="Input2" HorizontalAlignment="Left" Height="23" Margin="160,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewLostKeyboardFocus="Input2_PreviewLostKeyboardFocus"/>
+        <Label Name="Input1_Lbl" Content="" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Name="Input2_Lbl" Content="" HorizontalAlignment="Left" Margin="159,172,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="Decision" HorizontalAlignment="Left" Margin="10,231,0,0" TextWrapping="Wrap" Width="270" RenderTransformOrigin="0.497,0.427" Height="16" VerticalAlignment="Top"/>
+        <Button Content="Send email" Margin="10,0,513.333,128.667" Height="21" VerticalAlignment="Bottom" Click="Button_Click"/>
     </Grid>
 </Window>
