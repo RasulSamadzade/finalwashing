@@ -54,27 +54,11 @@ namespace WpfApp1
             }
         }
 
-        private void Input1_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            String value = Defect.SelectedItem.ToString();
-            switch (value)
-            {
-                case "Graffio": Decision.Text = Int32.Parse(Input1.Text) < 5 ? "La piastra è adatta per passare alla fase successiva" : "Contatta ingegnere di processo"; break;
-                case "Macchia": calcMacchia(); break;
-                case "Gap": Decision.Text = Int32.Parse(Input1.Text) < 20 ? "La piastra è adatta per passare alla fase successiva" : "Rifare l'incollaggio"; break;
-            }
-        }
-
-        private void Input2_PreviewLostKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
-        {
-            calcMacchia();
-        }
-
         private void calcMacchia()
         {
-            if (Input1.Text != "" && Input2.Text != "")
+            if (Double.TryParse(Input1.Text, out double input1) && Double.TryParse(Input2.Text, out double input2))
             {
-                if (Int32.Parse(Input1.Text) < 5 && Int32.Parse(Input2.Text) > 5)
+                if (input1 < 5 && input2 > 5)
                 {
                     Decision.Text = "La piastra è adatta per passare alla fase successiva";
                 }
@@ -82,6 +66,10 @@ namespace WpfApp1
                 {
                     Decision.Text = "Contatta ingegnere di processo";
                 }
+            }
+            else
+            {
+                Decision.Text = "";
             }
         }
 
@@ -403,7 +391,7 @@ namespace WpfApp1
                 SmtpMail oMail = new SmtpMail("TryIt");
 
                 oMail.From = "raslsam082@gmail.com";
-                oMail.To = "raslsam082@gmail.com";
+                oMail.To = "raslsamedzade@gmail.com";
 
                 oMail.Subject = "test email from gmail account";
                 oMail.TextBody = text;
@@ -426,6 +414,30 @@ namespace WpfApp1
                 Console.WriteLine("failed to send email with the following error:");
                 Console.WriteLine(ep.Message);
             }
+        }
+
+        private void Input1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            String value = Defect.SelectedItem.ToString();
+            bool calculate = Double.TryParse(Input1.Text, out double realValue);
+            if (calculate)
+            {
+                switch (value)
+                {
+                    case "Graffio": Decision.Text = realValue < 5.0 ? "La piastra è adatta per passare alla fase successiva" : "Contatta ingegnere di processo"; break;
+                    case "Macchia": calcMacchia(); break;
+                    case "Gap": Decision.Text = realValue < 20 ? "La piastra è adatta per passare alla fase successiva" : "Rifare l'incollaggio"; break;
+                }
+            }
+            else
+            {
+                Decision.Text = "";
+            }
+        }
+
+        private void Input2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            calcMacchia();
         }
     }
 }

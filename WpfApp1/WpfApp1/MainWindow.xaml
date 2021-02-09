@@ -19,8 +19,8 @@
         <Label Content="Tipo di difetto" HorizontalAlignment="Left" Margin="10,129,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Tipo di layer" HorizontalAlignment="Left" Margin="160,-6,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Content="Top/Bottom" HorizontalAlignment="Left" Margin="160,38,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Input1" HorizontalAlignment="Left" Height="23" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewLostKeyboardFocus="Input1_PreviewLostKeyboardFocus"/>
-        <TextBox x:Name="Input2" HorizontalAlignment="Left" Height="23" Margin="160,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" PreviewLostKeyboardFocus="Input2_PreviewLostKeyboardFocus"/>
+        <TextBox x:Name="Input1" HorizontalAlignment="Left" Height="23" Margin="10,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Input1_TextChanged"/>
+        <TextBox x:Name="Input2" HorizontalAlignment="Left" Height="23" Margin="160,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Input2_TextChanged"/>
         <Label Name="Input1_Lbl" Content="" HorizontalAlignment="Left" Margin="10,173,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Name="Input2_Lbl" Content="" HorizontalAlignment="Left" Margin="159,172,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBlock x:Name="Decision" HorizontalAlignment="Left" Margin="10,231,0,0" TextWrapping="Wrap" Width="270" RenderTransformOrigin="0.497,0.427" Height="16" VerticalAlignment="Top"/>
