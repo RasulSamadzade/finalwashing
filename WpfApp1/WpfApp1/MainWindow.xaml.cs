@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Data.SQLite;
-using System.Configuration;
-using System.Data;
 using OfficeOpenXml;
 using System.IO;
 using System.Threading;
-//using System.Net.Mail;
-//using System.Net;
 using EASendMail;
 
 namespace WpfApp1
@@ -354,7 +350,7 @@ namespace WpfApp1
             return cellData;
         }
 
-        public void setExcelStyle(OfficeOpenXml.ExcelWorksheet worksheet, String headerRange, String borderRange)
+        public void setExcelStyle(ExcelWorksheet worksheet, String headerRange, String borderRange)
         {
             worksheet.Cells[headerRange].Style.Font.Bold = true;
             worksheet.Cells[headerRange].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -379,9 +375,11 @@ namespace WpfApp1
         {
             saveToDatabase();
             string text = generateEmailText();
-            sendEmail(text);
             Thread thread1 = new Thread(generateExcel);
+            Thread thread2 = new Thread(()=>sendEmail(text));
             thread1.Start();
+            thread2.Start();
+            emptyFields();
         }
 
         public void sendEmail(String text)
@@ -391,10 +389,11 @@ namespace WpfApp1
                 SmtpMail oMail = new SmtpMail("TryIt");
 
                 oMail.From = "raslsam082@gmail.com";
-                oMail.To = "raslsamedzade@gmail.com";
+                oMail.To = "raslsam082@gmail.com";
 
                 oMail.Subject = "test email from gmail account";
                 oMail.TextBody = text;
+                oMail.AddAttachment("tibor2.PNG", File.ReadAllBytes("C:\\Users\\rsamadza\\finalwashing\\finalwashing\\WpfApp1\\WpfApp1\\Image\\tibor2.PNG"));
 
                 SmtpServer oServer = new SmtpServer("smtp.gmail.com");
                 oServer.User = "raslsam082@gmail.com";
