@@ -7,6 +7,7 @@ using OfficeOpenXml;
 using System.IO;
 using System.Threading;
 using EASendMail;
+using System.Windows.Media.Imaging;
 
 namespace WpfApp1
 {
@@ -19,6 +20,7 @@ namespace WpfApp1
             Directory.CreateDirectory(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProbe");
             string connectionString = "Data Source=" + Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "TechnoProbe.db;Version=3;New=False;Compress=True;";
             sqlConnection = new SQLiteConnection(connectionString);
+            Logo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "Image\\Logo.jpeg", UriKind.Absolute));
             initializeUI();
         }
 
@@ -27,6 +29,8 @@ namespace WpfApp1
             String value = (sender as ComboBox).SelectedItem.ToString();
             if (value == "Assembled")
             {
+                Layer.SelectedIndex = -1;
+                TopBottom.SelectedIndex = -1;
                 Layer.IsEnabled = false;
                 TopBottom.IsEnabled = false;
             } else
@@ -153,29 +157,48 @@ namespace WpfApp1
             String email = "";
             switch (Defect.SelectedItem.ToString())
             {
-                case "Parylene":
-                case "Sbeccatura": email = "Ciao Alessandro, (picture) (table) Il seguente difetto non è derogabile, procediamo con il rework. Grazie!"; break;
-                case "Altri": email = "Ciao Alessandro,  (picture) Il seguente difetto non è presente nel CP, che recovery plan possiamo attuare? Grazie! "; break;
+                case "Sbeccatura": email = "Ciao Alessandro, Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n"; break;
+                case "Altri": email = "Ciao Alessandro, Il seguente difetto non è presente nel CP, che recovery plan possiamo attuare? Grazie!\n\n"; break;
                 case "Graffio":
                     if (Double.Parse(Input1.Text) > 4.8 && Double.Parse(Input1.Text) < 5.2)
-                        email = "Ciao Alessandro,  (picture) Il seguente difetto è derogabile? Grazie! (borderline)";
-                    else
-                        email = "Ciao Alessandro, (picture) (table) Il seguente difetto non è derogabile, procediamo con il rework. Grazie!";
+                        email = "Ciao Alessandro,  Il seguente difetto è derogabile? Grazie!\n\n";
+                    else if (Double.Parse(Input1.Text) > 5.2)
+                        email = "Ciao Alessandro,  Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
                     break;
                 case "Macchia":
                     if (Double.Parse(Input1.Text) < 4.8 && Double.Parse(Input2.Text) < 5.2)
-                        email = "Ciao Alessandro,  (picture) Il seguente difetto è derogabile? Grazie! (borderline)";
+                        email = "Ciao Alessandro,  Il seguente difetto è derogabile? Grazie!\n\n";
                     else
-                        email = "Ciao Alessandro, (picture) (table) Il seguente difetto non è derogabile, procediamo con il rework. Grazie!";
+                        email = "Ciao Alessandro,  Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
                     break;
                 case "Gap":
                     if (Double.Parse(Input1.Text) > 9.8 && Double.Parse(Input1.Text) < 20.2)
-                        email = "Ciao Alessandro,  (picture) Il seguente difetto è derogabile? Grazie! (borderline)";
+                        email = "Ciao Alessandro,  Il seguente difetto è derogabile? Grazie!\n\n";
                     else
-                        email = "Ciao Alessandro, (picture) (table) Il seguente difetto non è derogabile, procediamo con il rework. Grazie!";
+                        email = "Ciao Alessandro, Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
                     break;
             }
+            String[] fields = new String[] { "Nome", "IDCode", "Tipo di Layer", "Top/Bottom", "Difetto", "Misura", "Misura2", "Decisione", "Data" };
+            String[] values = new String[] { checkInput(Name.Text), checkInput(ID_Code.Text), checkInput(Layer.Text),
+                checkInput(TopBottom.Text), checkInput(Defect.Text), checkInput(Input1.Text),
+                checkInput(Input2.Text), checkInput(Decision.Text), (DateTime.Now.Date + DateTime.Now.TimeOfDay).ToString()};
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (values[i] != "")
+                {
+                    email = $"{email} {fields[i]} - {values[i]}\n";
+                }
+            }
             return email;
+        }
+
+        private String checkInput(object input)
+        {
+            if (input == null)
+            {
+                input = "";
+            }
+            return input.ToString();
         }
 
         private void saveToDatabase()
@@ -388,16 +411,16 @@ namespace WpfApp1
             {
                 SmtpMail oMail = new SmtpMail("TryIt");
 
-                oMail.From = "raslsam082@gmail.com";
-                oMail.To = "raslsam082@gmail.com";
+                oMail.From = "technoprobe.finalwash@gmail.com";
+                oMail.To = "technoprobe.finalwash@gmail.com";
 
-                oMail.Subject = "test email from gmail account";
+                oMail.Subject = "Difetto";
                 oMail.TextBody = text;
-                oMail.AddAttachment("tibor2.PNG", File.ReadAllBytes("C:\\Users\\rsamadza\\finalwashing\\finalwashing\\WpfApp1\\WpfApp1\\Image\\tibor2.PNG"));
+                oMail.AddAttachment("probe.png", File.ReadAllBytes(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "\\Image\\probe.png"));
 
                 SmtpServer oServer = new SmtpServer("smtp.gmail.com");
-                oServer.User = "raslsam082@gmail.com";
-                oServer.Password = "LucaHouse-2020";
+                oServer.User = "technoprobe.finalwash@gmail.com";
+                oServer.Password = "Technoprobe2021";
 
                 oServer.Port = 587;
                 oServer.ConnectType = SmtpConnectType.ConnectSSLAuto;
