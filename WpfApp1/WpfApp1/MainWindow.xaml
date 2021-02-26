@@ -26,5 +26,6 @@
         <TextBlock x:Name="Decision" HorizontalAlignment="Left" Margin="10,231,0,0" TextWrapping="Wrap" Width="277" RenderTransformOrigin="0.497,0.427" Height="35" VerticalAlignment="Top"/>
         <Button Content="Send email" Margin="10,271,0,0" Height="21" VerticalAlignment="Top" Click="Final_Click" HorizontalAlignment="Left" Width="277"/>
         <Image x:Name="Logo" HorizontalAlignment="Left" Height="272" Margin="297,20,0,0" VerticalAlignment="Top" Width="183"/>
+        <Button Content="Select Image" HorizontalAlignment="Left" Margin="160,111,0,0" VerticalAlignment="Top" Width="119" Height="23" Click="Select_Image"/>
     </Grid>
 </Window>

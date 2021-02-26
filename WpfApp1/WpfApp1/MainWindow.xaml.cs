@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.IO;
 using System.Threading;
 using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 
 namespace WpfApp1
 {
@@ -150,6 +151,18 @@ namespace WpfApp1
             thread2.Start();
 
             emptyFields();
+        }
+
+        private void Select_Image(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            
+            if (openFileDialog.ShowDialog() == true)
+            {
+                emailHandling.attachImagePath(openFileDialog.FileName);
+            }
         }
     }
 }

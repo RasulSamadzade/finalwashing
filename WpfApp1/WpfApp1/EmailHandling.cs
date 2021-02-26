@@ -8,6 +8,7 @@ namespace WpfApp1
     {
         private string email;
         private bool emailStatus = false;
+        private string imagePath;
 
         public void sendEmail()
         {
@@ -22,7 +23,7 @@ namespace WpfApp1
 
                     oMail.Subject = "Difetto";
                     oMail.TextBody = email;
-                    oMail.AddAttachment("probe.png", File.ReadAllBytes(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "\\Image\\probe.png"));
+                    oMail.AddAttachment("probe.png", File.ReadAllBytes(imagePath));
 
                     SmtpServer oServer = new SmtpServer("smtp.gmail.com");
                     oServer.User = "technoprobe.finalwash@gmail.com";
@@ -93,6 +94,10 @@ namespace WpfApp1
                 }
             }
             return email;
+        }
+
+        public void attachImagePath(string imagePath) {
+            this.imagePath = imagePath;
         }
     }
 }
