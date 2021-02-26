@@ -77,6 +77,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controller.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="EmailHandling.cs" />
     <Compile Include="ExcelHandling.cs" />

@@ -23,7 +23,8 @@ namespace WpfApp1
 
                     oMail.Subject = "Difetto";
                     oMail.TextBody = email;
-                    oMail.AddAttachment("probe.png", File.ReadAllBytes(imagePath));
+                    if (imagePath != null)
+                        oMail.AddAttachment("probe.png", File.ReadAllBytes(imagePath));
 
                     SmtpServer oServer = new SmtpServer("smtp.gmail.com");
                     oServer.User = "technoprobe.finalwash@gmail.com";

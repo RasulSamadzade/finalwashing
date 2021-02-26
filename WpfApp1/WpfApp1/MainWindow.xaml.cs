@@ -15,6 +15,7 @@ namespace WpfApp1
         ExcelHandling excelHandling;
         UtilityHelpers utilityHelpers;
         EmailHandling emailHandling;
+        Controller controller;
 
         public MainWindow()
         {
@@ -24,6 +25,7 @@ namespace WpfApp1
             excelHandling = new ExcelHandling();
             utilityHelpers = new UtilityHelpers();
             emailHandling = new EmailHandling();
+            controller = new Controller();
 
             Directory.CreateDirectory(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProbe");
             Logo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "Image\\Logo.jpeg", UriKind.Absolute));
@@ -71,18 +73,6 @@ namespace WpfApp1
             Input2.Text = "";
         }
 
-        private void calcMacchia()
-        {
-            if (Double.TryParse(Input1.Text, out double input1) && Double.TryParse(Input2.Text, out double input2))
-            {
-                Decision.Text = input1<5 && input2>5 ? "La piastra è adatta per passare alla fase successiva" : "Contatta ingegnere di processo";
-            }
-            else
-            {
-                Decision.Text = "";
-            }
-        }
-
         private void Input1_TextChanged(object sender, TextChangedEventArgs e)
         {
             String value = Defect.SelectedItem.ToString();
@@ -91,9 +81,9 @@ namespace WpfApp1
             {
                 switch (value)
                 {
-                    case "Graffio": Decision.Text = realValue < 5.0 ? "La piastra è adatta per passare alla fase successiva" : "Contatta ingegnere di processo"; break;
-                    case "Macchia": calcMacchia(); break;
-                    case "Gap": Decision.Text = realValue < 20 ? "La piastra è adatta per passare alla fase successiva" : "Rifare l'incollaggio"; break;
+                    case "Graffio": Decision.Text = controller.calcGraffio(realValue); break;
+                    case "Macchia": Decision.Text = controller.calcMacchia(Input1.Text, Input2.Text); break;
+                    case "Gap": Decision.Text = controller.calcGap(realValue); break;
                 }
             }
             else
@@ -104,25 +94,20 @@ namespace WpfApp1
 
         private void Input2_TextChanged(object sender, TextChangedEventArgs e)
         {
-            calcMacchia();
-        }
-
-        private String checkInput(object input)
-        {
-            return input == null ? "" : input.ToString();
+            Decision.Text = controller.calcMacchia(Input1.Text, Input2.Text);
         }
 
         private Data getFieldValues()
         {
-            string type = checkInput(Type.SelectedValue);
-            string name = checkInput(Name.Text);
-            string idCode = checkInput(ID_Code.Text);
-            string layer = checkInput(Layer.SelectedValue);
-            string topBottom = checkInput(TopBottom.SelectedValue);
-            string defect = checkInput(Defect.SelectedValue);
-            string input1 = checkInput(Input1.Text);
-            string input2 = checkInput(Input2.Text);
-            string decision = checkInput(Decision.Text);
+            string type = controller.checkInput(Type.SelectedValue);
+            string name = controller.checkInput(Name.Text);
+            string idCode = controller.checkInput(ID_Code.Text);
+            string layer = controller.checkInput(Layer.SelectedValue);
+            string topBottom = controller.checkInput(TopBottom.SelectedValue);
+            string defect = controller.checkInput(Defect.SelectedValue);
+            string input1 = controller.checkInput(Input1.Text);
+            string input2 = controller.checkInput(Input2.Text);
+            string decision = controller.checkInput(Decision.Text);
 
             return new Data
             {
@@ -138,6 +123,18 @@ namespace WpfApp1
             };
         }
 
+        private void Select_Image(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            
+            if (openFileDialog.ShowDialog() == true)
+            {
+                emailHandling.attachImagePath(openFileDialog.FileName);
+            }
+        }
+
         private void Final_Click(object sender, RoutedEventArgs e)
         {
             Data fields = getFieldValues();
@@ -151,18 +148,6 @@ namespace WpfApp1
             thread2.Start();
 
             emptyFields();
-        }
-
-        private void Select_Image(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            
-            if (openFileDialog.ShowDialog() == true)
-            {
-                emailHandling.attachImagePath(openFileDialog.FileName);
-            }
         }
     }
 }
