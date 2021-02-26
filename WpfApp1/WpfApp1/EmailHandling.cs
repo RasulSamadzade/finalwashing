@@ -47,7 +47,7 @@ namespace WpfApp1
             }
         }
 
-        public String generateEmailText(Data parameters)
+        public void generateEmailText(Data parameters)
         {
             emailStatus = true;
             email = "";
@@ -93,7 +93,6 @@ namespace WpfApp1
                     }
                 }
             }
-            return email;
         }
 
         public void attachImagePath(string imagePath) {
