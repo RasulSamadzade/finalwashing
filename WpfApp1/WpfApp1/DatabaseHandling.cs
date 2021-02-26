@@ -48,107 +48,26 @@ namespace WpfApp1
         public List<string[]> generateListFromDatabase()
         {
             var cellData = new List<string[]>();
+            string[] cell;
             try
             {
                 string query = "SELECT Type, Name, IdCode, Layer, TopBottom, Defect, Input1, Input2, Decision, Date FROM FinalResults";
                 sqlConnection.Open();
-                String a;
-                String b;
-                String c;
-                String d;
-                String e;
-                String f;
-                String g;
-                String h;
-                String i;
-                String j;
-                String k;
                 var cmd = new SQLiteCommand(query, sqlConnection);
                 using (SQLiteDataReader rdr = cmd.ExecuteReader())
                 {
                     while (rdr.Read())
                     {
-                        try
+                        cell = new string[10];
+                        for (int i = 0; i < 10; i++)
                         {
-                            a = rdr.GetString(0);
+                            string a = "";
+
+                            try { a = rdr.GetString(i); }
+                            catch (Exception){}
+
+                            cell[i] = a;
                         }
-                        catch (Exception ex)
-                        {
-                            a = "";
-                        }
-                        try
-                        {
-                            b = rdr.GetString(1);
-                        }
-                        catch (Exception ex)
-                        {
-                            b = "";
-                        }
-                        try
-                        {
-                            c = rdr.GetString(2);
-                        }
-                        catch (Exception ex)
-                        {
-                            c = "";
-                        }
-                        try
-                        {
-                            d = rdr.GetString(3);
-                        }
-                        catch (Exception ex)
-                        {
-                            d = "";
-                        }
-                        try
-                        {
-                            e = rdr.GetString(4);
-                        }
-                        catch (Exception ex)
-                        {
-                            e = "";
-                        }
-                        try
-                        {
-                            f = rdr.GetString(5);
-                        }
-                        catch (Exception ex)
-                        {
-                            f = "";
-                        }
-                        try
-                        {
-                            g = rdr.GetString(6);
-                        }
-                        catch (Exception ex)
-                        {
-                            g = "";
-                        }
-                        try
-                        {
-                            h = rdr.GetString(7);
-                        }
-                        catch (Exception ex)
-                        {
-                            h = "";
-                        }
-                        try
-                        {
-                            i = rdr.GetString(8);
-                        }
-                        catch (Exception ex)
-                        {
-                            i = "";
-                        }
-                        try
-                        {
-                            j = rdr.GetString(9);
-                        }
-                        catch (Exception ex)
-                        {
-                            j = "";
-                        }
-                        var cell = new string[] { a, b, c, d, e, f, g, h, i, j };
                         cellData.Add(cell);
                     }
                 }
