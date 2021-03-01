@@ -71,7 +71,7 @@ namespace WpfApp1
             input2.Visibility = Visibility.Hidden;
             input2_Lbl.Visibility = Visibility.Hidden;
             input2.Text = "";
-            decision.Text = "Contatta ingegnere di processo(inserire la foto) (e - mail: alessandro.bonetto @technoprobe.com)";
+            decision.Text = "Contatta ingegnere di processo";
         }
 
         private void makeGap()
@@ -90,7 +90,7 @@ namespace WpfApp1
             input2.Visibility = Visibility.Hidden;
             input2_Lbl.Visibility = Visibility.Hidden;
             input2.Text = "";
-            decision.Text = "Contatta ingegnere di processo (inserire la foto) (e-mail: alessandro.bonetto@technoprobe.com)";
+            decision.Text = "Contatta ingegnere di processo";
         }
     }
 }

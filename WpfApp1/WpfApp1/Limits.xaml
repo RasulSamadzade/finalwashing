@@ -17,6 +17,5 @@
         <TextBox x:Name="Gap" HorizontalAlignment="Left" Height="20" Margin="59,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
         <Label Content="Tolerance" HorizontalAlignment="Left" Margin="0,113,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="Tolerance" HorizontalAlignment="Left" Height="20" Margin="59,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
-
     </Grid>
 </Window>

@@ -58,7 +58,7 @@ namespace WpfApp1
                 case "Sbeccatura": email = "Ciao Alessandro, Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n"; break;
                 case "Altri": email = "Ciao Alessandro, Il seguente difetto non è presente nel CP, che recovery plan possiamo attuare? Grazie!\n\n"; break;
                 case "Graffio":
-                    if (Double.Parse(parameters.Input1) < limit.Graffio - limit.Tolerance && Double.Parse(parameters.Input1) > limit.Graffio)
+                    if (Double.Parse(parameters.Input1) > limit.Graffio - limit.Tolerance && Double.Parse(parameters.Input1) < limit.Graffio + limit.Tolerance)
                         email = "Ciao Alessandro, Il seguente difetto è derogabile? Grazie!";
                     else if (Double.Parse(parameters.Input1) >= limit.Graffio + limit.Tolerance)
                         email = "Ciao Alessandro,  Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
@@ -66,7 +66,7 @@ namespace WpfApp1
                         emailStatus = false;
                     break;
                 case "Macchia":
-                    if ((Double.Parse(parameters.Input1) < limit.Macchia1 + limit.Tolerance && Double.Parse(parameters.Input1) > limit.Macchia1) || (Double.Parse(parameters.Input2) > limit.Macchia2 - limit.Tolerance && Double.Parse(parameters.Input2) < limit.Macchia2))
+                    if ((Double.Parse(parameters.Input1) < limit.Macchia1 + limit.Tolerance && Double.Parse(parameters.Input1) > limit.Macchia1 - limit.Tolerance) || (Double.Parse(parameters.Input2) > limit.Macchia2 - limit.Tolerance && Double.Parse(parameters.Input2) < limit.Macchia2 + limit.Tolerance))
                         email = "Ciao Alessandro, Il seguente difetto è derogabile? Grazie!";
                     else if (Double.Parse(parameters.Input1) >= limit.Macchia1 + limit.Tolerance && Double.Parse(parameters.Input2) <= limit.Macchia2 - limit.Tolerance)
                         email = "Ciao Alessandro,  Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
@@ -74,7 +74,7 @@ namespace WpfApp1
                         emailStatus = false;
                     break;
                 case "Gap":
-                    if (Double.Parse(parameters.Input1) > limit.Gap && Double.Parse(parameters.Input1) < limit.Gap + limit.Tolerance)
+                    if (Double.Parse(parameters.Input1) > limit.Gap - limit.Tolerance && Double.Parse(parameters.Input1) < limit.Gap + limit.Tolerance)
                         email = "Ciao Alessandro, Il seguente difetto è derogabile? Grazie!";
                     else if (Double.Parse(parameters.Input1) >= limit.Gap + limit.Tolerance)
                         email = "Ciao Alessandro,  Il seguente difetto è derogabile? Grazie!\n\n";
@@ -95,6 +95,31 @@ namespace WpfApp1
                     }
                 }
             }
+        }
+
+        public bool checkInputStatus(Data parameters, Limits limits)
+        {
+            emailStatus = true;
+            var limit = limits.getValues();
+            switch (parameters.Defect)
+            {
+                case "Parylene": emailStatus = false; break;
+                case "Sbeccatura": emailStatus = true; break;
+                case "Altri": emailStatus = true; break;
+                case "Graffio":
+                        if (parameters.Input1 == "" || Double.Parse(parameters.Input1) <= limit.Graffio - limit.Tolerance)
+                            emailStatus = false;
+                        break;
+                case "Macchia":
+                        if (parameters.Input1 == "" || parameters.Input2 == "" || (Double.Parse(parameters.Input1) < limit.Macchia1 - limit.Tolerance) && (Double.Parse(parameters.Input2) < limit.Macchia2 - limit.Tolerance))
+                            emailStatus = false;
+                        break;
+                case "Gap":
+                        if (parameters.Input1 == "" || Double.Parse(parameters.Input1) < limit.Gap - limit.Tolerance)
+                            emailStatus = false;
+                        break;
+            }
+            return emailStatus;
         }
 
         public void attachImagePath(string imagePath) {

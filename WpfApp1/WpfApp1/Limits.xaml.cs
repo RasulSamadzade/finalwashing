@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace WpfApp1
 {
-    /// <summary>
-    /// Interaction logic for Limits.xaml
-    /// </summary>
     public partial class Limits : Window
     {
         public struct Numbers

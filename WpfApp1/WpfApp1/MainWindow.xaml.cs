@@ -54,6 +54,7 @@ namespace WpfApp1
         {
             String value = (sender as ComboBox).SelectedItem.ToString();
             utilityHelpers.adjustUI(Input1, Input2, Input1_Lbl, Input2_Lbl, Decision, value);
+            changeButtonText();
         }
 
         private void initializeUI()
@@ -92,11 +93,13 @@ namespace WpfApp1
             {
                 Decision.Text = "";
             }
+            changeButtonText();
         }
 
         private void Input2_TextChanged(object sender, TextChangedEventArgs e)
         {
             Decision.Text = controller.calcMacchia(Input1.Text, Input2.Text);
+            changeButtonText();
         }
 
         private Data getFieldValues()
@@ -155,6 +158,13 @@ namespace WpfApp1
         private void Limits_Click(object sender, RoutedEventArgs e)
         {
             limits.Show();
+        }
+
+        private void changeButtonText()
+        {
+            Data fields = getFieldValues();
+            bool decision = emailHandling.checkInputStatus(fields, limits);
+            Send_Email.Content = decision ? "Send Email" : "Save To DB";
         }
     }
 }
