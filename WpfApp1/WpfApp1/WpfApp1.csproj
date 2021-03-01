@@ -81,7 +81,14 @@
     <Compile Include="Data.cs" />
     <Compile Include="EmailHandling.cs" />
     <Compile Include="ExcelHandling.cs" />
+    <Compile Include="Limits.xaml.cs">
+      <DependentUpon>Limits.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UtilityHelpers.cs" />
+    <Page Include="Limits.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -16,6 +16,7 @@ namespace WpfApp1
         UtilityHelpers utilityHelpers;
         EmailHandling emailHandling;
         Controller controller;
+        Limits limits;
 
         public MainWindow()
         {
@@ -26,6 +27,7 @@ namespace WpfApp1
             utilityHelpers = new UtilityHelpers();
             emailHandling = new EmailHandling();
             controller = new Controller();
+            limits = new Limits();
 
             Directory.CreateDirectory(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProbe");
             Logo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "Image\\Logo.jpeg", UriKind.Absolute));
@@ -139,7 +141,7 @@ namespace WpfApp1
         {
             Data fields = getFieldValues();
             databaseHandling.saveToDatabase(fields);
-            emailHandling.generateEmailText(fields);
+            emailHandling.generateEmailText(fields, limits);
 
             Thread thread1 = new Thread(excelHandling.generateExcel);
             Thread thread2 = new Thread(() => emailHandling.sendEmail());
@@ -148,6 +150,11 @@ namespace WpfApp1
             thread2.Start();
 
             emptyFields();
+        }
+
+        private void Limits_Click(object sender, RoutedEventArgs e)
+        {
+            limits.Show();
         }
     }
 }

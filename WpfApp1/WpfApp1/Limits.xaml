@@ -1,0 +1,22 @@
+﻿<Window x:Class="WpfApp1.Limits"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Closing="Window_Closing"
+        Title="Limits" Height="180" Width="150">
+    <Grid>
+        <Label Content="Graffio" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Macchia" HorizontalAlignment="Left" Margin="0,36,0,0" VerticalAlignment="Top"/>
+        <Label Content="Gap" HorizontalAlignment="Left" Margin="0,88,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Graffio" HorizontalAlignment="Left" Height="20" Margin="59,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
+        <TextBox x:Name="Macchia1" HorizontalAlignment="Left" Height="20" Margin="59,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
+        <TextBox x:Name="Macchia2" HorizontalAlignment="Left" Height="20" Margin="59,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
+        <TextBox x:Name="Gap" HorizontalAlignment="Left" Height="20" Margin="59,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
+        <Label Content="Tolerance" HorizontalAlignment="Left" Margin="0,113,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Tolerance" HorizontalAlignment="Left" Height="20" Margin="59,119,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="74"/>
+
+    </Grid>
+</Window>

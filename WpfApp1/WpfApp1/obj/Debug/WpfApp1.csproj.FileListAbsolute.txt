@@ -22,3 +22,5 @@ C:\Users\rsamadza\finalwashing\finalwashing\WpfApp1\WpfApp1\bin\Debug\Microsoft.
 C:\Users\rsamadza\finalwashing\finalwashing\WpfApp1\WpfApp1\bin\Debug\System.Data.SQLite.xml
 C:\Users\rsamadza\finalwashing\finalwashing\WpfApp1\WpfApp1\obj\Debug\WpfApp1.csproj.CopyComplete
 C:\Users\rsamadza\finalwashing\finalwashing\WpfApp1\WpfApp1\bin\Debug\EASendMail.dll
+C:\Users\rsamadza\finalwashing\finalwashing\WpfApp1\WpfApp1\obj\Debug\Limits.g.cs
+C:\Users\rsamadza\finalwashing\finalwashing\WpfApp1\WpfApp1\obj\Debug\Limits.baml
