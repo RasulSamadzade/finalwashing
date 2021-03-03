@@ -33,7 +33,7 @@ namespace WpfApp1
                 setExcelStyle(worksheet, headerRange, borderRange);
                 worksheet.Cells[headerRange].LoadFromArrays(headerRow);
                 worksheet.Cells[2, 1].LoadFromArrays(data);
-                var dir = Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnicalProb";
+                var dir = Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProb1";
                 FileInfo excelFile = new FileInfo(dir + "\\FinalWashing.xlsx");
                 excel.SaveAs(excelFile);
             }
