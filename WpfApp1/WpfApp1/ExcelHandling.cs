@@ -34,7 +34,7 @@ namespace WpfApp1
                 worksheet.Cells[headerRange].LoadFromArrays(headerRow);
                 worksheet.Cells[2, 1].LoadFromArrays(data);
                 var dir = Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProbe";
-                FileInfo excelFile = new FileInfo(dir + "\\TechnoProb.xlsx");
+                FileInfo excelFile = new FileInfo(dir + "\\FInalWashing.xlsx");
                 excel.SaveAs(excelFile);
             }
         }

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
+        Closing="Window_Closing"
         Title="Defect Identifier" Height="381.333" Width="500">
     <Grid Margin="0,0,3.333,-0.333">
         <ComboBox Name="Type" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Type_SelectionChanged"/>
