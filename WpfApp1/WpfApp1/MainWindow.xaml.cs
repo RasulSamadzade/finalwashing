@@ -16,6 +16,7 @@ namespace WpfApp1
         UtilityHelpers utilityHelpers;
         EmailHandling emailHandling;
         Controller controller;
+        string uri = Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9);
 
         public MainWindow()
         {
@@ -26,27 +27,35 @@ namespace WpfApp1
             utilityHelpers = new UtilityHelpers();
             emailHandling = new EmailHandling();
             controller = new Controller();
-
+            
             Directory.CreateDirectory(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProb1");
-            Logo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "Image\\Logo.jpeg", UriKind.Absolute));
+            Logo.Source = new BitmapImage(new Uri(uri + "Image\\Logo.jpeg", UriKind.Absolute));
+
+            checkGlobalLimits();
             initializeUI();
         }
 
-        //private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    String value = (sender as ComboBox).SelectedItem.ToString();
-        //    if (value == "Assembled")
-        //    {
-        //        Layer.SelectedIndex = -1;
-        //        TopBottom.SelectedIndex = -1;
-        //        Layer.IsEnabled = false;
-        //        TopBottom.IsEnabled = false;
-        //    } else
-        //    {
-        //        Layer.IsEnabled = true;
-        //        TopBottom.IsEnabled = true;
-        //    }
-        //}
+        private void checkGlobalLimits()
+        {
+            if (File.Exists(uri + "Settings.txt"))
+            {
+                StreamReader sr = new StreamReader(uri + "Settings.txt");
+                string line = sr.ReadLine();
+                string[] limits = line.Split(new char[] { ' ' });
+                GlobalLimits.Graffio = Double.Parse(limits[0]);
+                GlobalLimits.Macchia1 = Double.Parse(limits[1]);
+                GlobalLimits.Macchia2 = Double.Parse(limits[2]);
+                GlobalLimits.Gap = Double.Parse(limits[3]);
+                GlobalLimits.Tolerance = Double.Parse(limits[4]);
+                sr.Close();
+            }
+            else
+            {
+                StreamWriter sw = new StreamWriter(uri + "Settings.txt");
+                sw.Write("5 5 5 20 0.2");
+                sw.Close();
+            }
+        }
 
         private void Defect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -162,6 +171,14 @@ namespace WpfApp1
             Data fields = getFieldValues();
             bool decision = emailHandling.checkInputStatus(fields);
             Send_Email.Content = decision ? "Send Email" : "Save To DB";
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            StreamWriter sw = new StreamWriter(uri + "Settings.txt");
+            string limits = $"{GlobalLimits.Graffio} {GlobalLimits.Macchia1} {GlobalLimits.Macchia2} {GlobalLimits.Gap} {GlobalLimits.Tolerance}";
+            sw.Write(limits);
+            sw.Close();
         }
     }
 }
