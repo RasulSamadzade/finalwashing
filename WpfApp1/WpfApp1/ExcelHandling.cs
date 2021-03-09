@@ -26,7 +26,7 @@ namespace WpfApp1
                 excel.Workbook.Worksheets.Add("Worksheet2");
                 excel.Workbook.Worksheets.Add("Worksheet3");
                 var data = databaseHandling.generateListFromDatabase();
-                var headerRow = new List<string[]>() { new string[] { "Type", "Name", "IdCode", "Layer", "TopBottom", "IdCode", "Defect", "Input1", "Input2", "Decision", "Date" } };
+                var headerRow = new List<string[]>() { new string[] { "Type", "Name", "IdCode", "Layer", "TopBottom", "Defect", "Input1", "Input2", "Decision", "Date" } };
                 string headerRange = "A1:" + Char.ConvertFromUtf32(headerRow[0].Length + 64) + "1";
                 string borderRange = "A1:" + Char.ConvertFromUtf32(headerRow[0].Length + 64) + (data.Count + 1).ToString();
                 var worksheet = excel.Workbook.Worksheets["Worksheet1"];

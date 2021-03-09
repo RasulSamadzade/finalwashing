@@ -81,6 +81,7 @@
     <Compile Include="Data.cs" />
     <Compile Include="EmailHandling.cs" />
     <Compile Include="ExcelHandling.cs" />
+    <Compile Include="GlobalLimits.cs" />
     <Compile Include="Limits.xaml.cs">
       <DependentUpon>Limits.xaml</DependentUpon>
     </Compile>

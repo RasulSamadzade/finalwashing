@@ -48,35 +48,34 @@ namespace WpfApp1
             }
         }
 
-        public void generateEmailText(Data parameters, Limits limits)
+        public void generateEmailText(Data parameters)
         {
             emailStatus = true;
             email = "";
-            var limit = limits.getValues();
             switch (parameters.Defect)
             {
                 case "Sbeccatura": email = "Ciao Alessandro, Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n"; break;
                 case "Altri": email = "Ciao Alessandro, Il seguente difetto non è presente nel CP, che recovery plan possiamo attuare? Grazie!\n\n"; break;
                 case "Graffio":
-                    if (Double.Parse(parameters.Input1) > limit.Graffio - limit.Tolerance && Double.Parse(parameters.Input1) < limit.Graffio + limit.Tolerance)
+                    if (Double.Parse(parameters.Input1) > GlobalLimits.Graffio - GlobalLimits.Tolerance && Double.Parse(parameters.Input1) < GlobalLimits.Graffio + GlobalLimits.Tolerance)
                         email = "Ciao Alessandro, Il seguente difetto è derogabile? Grazie!";
-                    else if (Double.Parse(parameters.Input1) >= limit.Graffio + limit.Tolerance)
+                    else if (Double.Parse(parameters.Input1) >= GlobalLimits.Graffio + GlobalLimits.Tolerance)
                         email = "Ciao Alessandro,  Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
                     else
                         emailStatus = false;
                     break;
                 case "Macchia":
-                    if ((Double.Parse(parameters.Input1) < limit.Macchia1 + limit.Tolerance && Double.Parse(parameters.Input1) > limit.Macchia1 - limit.Tolerance) || (Double.Parse(parameters.Input2) > limit.Macchia2 - limit.Tolerance && Double.Parse(parameters.Input2) < limit.Macchia2 + limit.Tolerance))
+                    if ((Double.Parse(parameters.Input1) < GlobalLimits.Macchia1 + GlobalLimits.Tolerance && Double.Parse(parameters.Input1) > GlobalLimits.Macchia1 - GlobalLimits.Tolerance) || (Double.Parse(parameters.Input2) > GlobalLimits.Macchia2 - GlobalLimits.Tolerance && Double.Parse(parameters.Input2) < GlobalLimits.Macchia2 + GlobalLimits.Tolerance))
                         email = "Ciao Alessandro, Il seguente difetto è derogabile? Grazie!";
-                    else if (Double.Parse(parameters.Input1) >= limit.Macchia1 + limit.Tolerance && Double.Parse(parameters.Input2) <= limit.Macchia2 - limit.Tolerance)
+                    else if (Double.Parse(parameters.Input1) >= GlobalLimits.Macchia1 + GlobalLimits.Tolerance && Double.Parse(parameters.Input2) <= GlobalLimits.Macchia2 - GlobalLimits.Tolerance)
                         email = "Ciao Alessandro,  Il seguente difetto non è derogabile, procediamo con il rework. Grazie!\n\n";
                     else
                         emailStatus = false;
                     break;
                 case "Gap":
-                    if (Double.Parse(parameters.Input1) > limit.Gap - limit.Tolerance && Double.Parse(parameters.Input1) < limit.Gap + limit.Tolerance)
+                    if (Double.Parse(parameters.Input1) > GlobalLimits.Gap - GlobalLimits.Tolerance && Double.Parse(parameters.Input1) < GlobalLimits.Gap + GlobalLimits.Tolerance)
                         email = "Ciao Alessandro, Il seguente difetto è derogabile? Grazie!";
-                    else if (Double.Parse(parameters.Input1) >= limit.Gap + limit.Tolerance)
+                    else if (Double.Parse(parameters.Input1) >= GlobalLimits.Gap + GlobalLimits.Tolerance)
                         email = "Ciao Alessandro,  Il seguente difetto è derogabile? Grazie!\n\n";
                     else
                         emailStatus = false;
@@ -97,25 +96,24 @@ namespace WpfApp1
             }
         }
 
-        public bool checkInputStatus(Data parameters, Limits limits)
+        public bool checkInputStatus(Data parameters)
         {
             emailStatus = true;
-            var limit = limits.getValues();
             switch (parameters.Defect)
             {
                 case "Parylene": emailStatus = false; break;
                 case "Sbeccatura": emailStatus = true; break;
                 case "Altri": emailStatus = true; break;
                 case "Graffio":
-                        if (parameters.Input1 == "" || Double.Parse(parameters.Input1) <= limit.Graffio - limit.Tolerance)
+                        if (parameters.Input1 == "" || Double.Parse(parameters.Input1) <= GlobalLimits.Graffio - GlobalLimits.Tolerance)
                             emailStatus = false;
                         break;
                 case "Macchia":
-                        if (parameters.Input1 == "" || parameters.Input2 == "" || (Double.Parse(parameters.Input1) < limit.Macchia1 - limit.Tolerance) && (Double.Parse(parameters.Input2) < limit.Macchia2 - limit.Tolerance))
+                        if (parameters.Input1 == "" || parameters.Input2 == "" || (Double.Parse(parameters.Input1) < GlobalLimits.Macchia1 - GlobalLimits.Tolerance) && (Double.Parse(parameters.Input2) < GlobalLimits.Macchia2 - GlobalLimits.Tolerance))
                             emailStatus = false;
                         break;
                 case "Gap":
-                        if (parameters.Input1 == "" || Double.Parse(parameters.Input1) < limit.Gap - limit.Tolerance)
+                        if (parameters.Input1 == "" || Double.Parse(parameters.Input1) < GlobalLimits.Gap - GlobalLimits.Tolerance)
                             emailStatus = false;
                         break;
             }

@@ -16,40 +16,23 @@ namespace WpfApp1
 {
     public partial class Limits : Window
     {
-        public struct Numbers
-        {
-            public double Graffio;
-            public double Macchia1;
-            public double Macchia2;
-            public double Gap;
-            public double Tolerance;
-        }
-
         public Limits()
         {
             InitializeComponent();
-            Graffio.Text = "5";
-            Macchia1.Text = "5";
-            Macchia2.Text = "5";
-            Gap.Text = "20";
-            Tolerance.Text = "0.2";
+            Graffio.Text = GlobalLimits.Graffio.ToString();
+            Macchia1.Text = GlobalLimits.Macchia1.ToString();
+            Macchia2.Text = GlobalLimits.Macchia2.ToString();
+            Gap.Text = GlobalLimits.Gap.ToString();
+            Tolerance.Text = GlobalLimits.Tolerance.ToString();
         }
 
-        public Numbers getValues()
+        protected override void OnClosed(EventArgs e)
         {
-            Numbers numbers = new Numbers();
-            numbers.Graffio = Double.TryParse(Graffio.Text, out numbers.Graffio) ? numbers.Graffio : 5.0;
-            numbers.Macchia1 = Double.TryParse(Macchia1.Text, out numbers.Macchia1) ? numbers.Macchia1 : 5.0;
-            numbers.Macchia2 = Double.TryParse(Macchia2.Text, out numbers.Macchia2) ? numbers.Macchia2 : 5.0;
-            numbers.Gap = Double.TryParse(Gap.Text, out numbers.Gap) ? numbers.Gap : 20.0;
-            numbers.Tolerance = Double.TryParse(Tolerance.Text, out numbers.Tolerance) ? numbers.Tolerance : 0.2;
-            return numbers;
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            e.Cancel = true;
-            this.Visibility = Visibility.Hidden;
+            GlobalLimits.Graffio = Double.TryParse(Graffio.Text, out GlobalLimits.Graffio) ? GlobalLimits.Graffio : 5;
+            GlobalLimits.Macchia1 = Double.TryParse(Macchia1.Text, out GlobalLimits.Macchia1) ? GlobalLimits.Macchia1 : 5;
+            GlobalLimits.Macchia2 = Double.TryParse(Macchia2.Text, out GlobalLimits.Macchia2) ? GlobalLimits.Macchia2 : 5;
+            GlobalLimits.Gap = Double.TryParse(Gap.Text, out GlobalLimits.Gap) ? GlobalLimits.Gap : 20;
+            GlobalLimits.Tolerance = Double.TryParse(Tolerance.Text, out GlobalLimits.Tolerance) ? GlobalLimits.Tolerance : 0.2;
         }
     }
 }

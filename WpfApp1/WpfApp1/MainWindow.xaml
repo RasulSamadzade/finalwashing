@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Defect Identifier" Height="381.333" Width="500">
     <Grid Margin="0,0,3.333,-0.333">
-        <ComboBox Name="Type" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="Type_SelectionChanged"/>
+        <ComboBox Name="Type" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox Name="Name"  HorizontalAlignment="Left" Height="23" Margin="10,63,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="ID_Code" HorizontalAlignment="Left" Height="23" Margin="10,111,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <ComboBox Name="Layer" HorizontalAlignment="Left" Margin="160,20,0,0" VerticalAlignment="Top" Width="120"/>

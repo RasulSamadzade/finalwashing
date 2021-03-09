@@ -16,7 +16,6 @@ namespace WpfApp1
         UtilityHelpers utilityHelpers;
         EmailHandling emailHandling;
         Controller controller;
-        Limits limits;
 
         public MainWindow()
         {
@@ -27,28 +26,27 @@ namespace WpfApp1
             utilityHelpers = new UtilityHelpers();
             emailHandling = new EmailHandling();
             controller = new Controller();
-            limits = new Limits();
 
             Directory.CreateDirectory(Directory.GetDirectoryRoot(Directory.GetCurrentDirectory()) + "TechnoProb1");
             Logo.Source = new BitmapImage(new Uri(Directory.GetCurrentDirectory().Substring(0, Directory.GetCurrentDirectory().Length - 9) + "Image\\Logo.jpeg", UriKind.Absolute));
             initializeUI();
         }
 
-        private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            String value = (sender as ComboBox).SelectedItem.ToString();
-            if (value == "Assembled")
-            {
-                Layer.SelectedIndex = -1;
-                TopBottom.SelectedIndex = -1;
-                Layer.IsEnabled = false;
-                TopBottom.IsEnabled = false;
-            } else
-            {
-                Layer.IsEnabled = true;
-                TopBottom.IsEnabled = true;
-            }
-        }
+        //private void Type_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    String value = (sender as ComboBox).SelectedItem.ToString();
+        //    if (value == "Assembled")
+        //    {
+        //        Layer.SelectedIndex = -1;
+        //        TopBottom.SelectedIndex = -1;
+        //        Layer.IsEnabled = false;
+        //        TopBottom.IsEnabled = false;
+        //    } else
+        //    {
+        //        Layer.IsEnabled = true;
+        //        TopBottom.IsEnabled = true;
+        //    }
+        //}
 
         private void Defect_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -63,8 +61,6 @@ namespace WpfApp1
             Layer.ItemsSource = new List<String>() { "UD1", "UD2", "LD" };
             TopBottom.ItemsSource = new List<String>() { "Top", "Bottom" };
             Defect.ItemsSource = new List<String>() { "Parylene", "Graffio", "Macchia", "Sbeccatura", "Gap", "Altri" };
-            Layer.IsEnabled = false;
-            TopBottom.IsEnabled = false;
             Input2.Visibility = Visibility.Hidden;
             Input2_Lbl.Visibility = Visibility.Hidden;
         }
@@ -144,7 +140,7 @@ namespace WpfApp1
         {
             Data fields = getFieldValues();
             databaseHandling.saveToDatabase(fields);
-            emailHandling.generateEmailText(fields, limits);
+            emailHandling.generateEmailText(fields);
 
             Thread thread1 = new Thread(excelHandling.generateExcel);
             Thread thread2 = new Thread(() => emailHandling.sendEmail());
@@ -157,13 +153,14 @@ namespace WpfApp1
 
         private void Limits_Click(object sender, RoutedEventArgs e)
         {
+            Limits limits = new Limits();
             limits.Show();
         }
 
         private void changeButtonText()
         {
             Data fields = getFieldValues();
-            bool decision = emailHandling.checkInputStatus(fields, limits);
+            bool decision = emailHandling.checkInputStatus(fields);
             Send_Email.Content = decision ? "Send Email" : "Save To DB";
         }
     }
